@@ -23,7 +23,15 @@
 # $1: repository URL
 # $2: current project directory path
 download_project(){
-    git clone $1 $2
+  if [[ ! -d "$2" ]]; then
+    git clone "$1" "$2"
+  else
+    echo "Already cloned $2"
+    cd "$2"
+    git fetch
+    git reset --hard
+    cd -
+  fi
 }
 
 # $2 directory path to create

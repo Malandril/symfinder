@@ -24,7 +24,11 @@ hs_err_pid*
 
 .idea
 *.iml
+.gradle
 target
+out
+output
+build
 /resources
 /generated_visualizations
 /src/main/generated-sources

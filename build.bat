@@ -21,5 +21,6 @@ rem Copyright 2018-2019 Philippe Collet <philippe.collet@univ-cotedazur.fr>
 
 
 docker build -f docker/sources_fetcher/Dockerfile -t deathstar3/symfinder-fetcher:local .
-docker build -f docker/symfinder/Dockerfile -t deathstar3/symfinder-engine:local --build-arg BUILD_PARAMS="%*" .
 docker build -f docker/runner/Dockerfile -t deathstar3/symfinder-runner:local .
+docker build -f docker/symfinder/Dockerfile -t symfinder-engine-base:17-jre-alpine .
+./gradlew.bat jibDockerBuild

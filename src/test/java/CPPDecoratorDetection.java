@@ -22,31 +22,29 @@
 import neo4j_types.DesignPatternType;
 import neo4j_types.EntityType;
 import neo4j_types.RelationType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.neo4j.driver.types.Node;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CPPDecoratorDetection extends Neo4jTest {
 
     @Test
-    public void decoratorNameDetected() {
-        runTest(graph->{
-            Node window = graph.createNode("Window",EntityType.CLASS);
-            Node hugeWindow = graph.createNode("HugeWindow",EntityType.CLASS);
+    void decoratorNameDetected() {
+        runTest(graph -> {
+            Node window = graph.createNode("Window", EntityType.CLASS);
+            Node hugeWindow = graph.createNode("HugeWindow", EntityType.CLASS);
 
-            graph.linkTwoNodes(window,hugeWindow,RelationType.EXTENDS);
+            graph.linkTwoNodes(window, hugeWindow, RelationType.EXTENDS);
 
-            Node decorator = graph.createNode("WindowDecorator",EntityType.CLASS);
+            Node decorator = graph.createNode("WindowDecorator", EntityType.CLASS);
 
-            graph.linkTwoNodes(window,decorator,RelationType.EXTENDS);
-
+            graph.linkTwoNodes(window, decorator, RelationType.EXTENDS);
 
 
             Node windowAttribute = graph.createNode("window", EntityType.ATTRIBUTE);
-            graph.setNodeAttribute(windowAttribute,"type","Window");
-            graph.linkTwoNodes(decorator,windowAttribute,RelationType.ATTRIBUTE);
+            graph.setNodeAttribute(windowAttribute, "type", "Window");
+            graph.linkTwoNodes(decorator, windowAttribute, RelationType.ATTRIBUTE);
 
             graph.detectCPPDecoratorPatterns();
 
@@ -55,25 +53,25 @@ public class CPPDecoratorDetection extends Neo4jTest {
     }
 
     @Test
-    public void decoratorObjectStructureDetected() {
-        runTest(graph->{
-            Node window = graph.createNode("Window",EntityType.CLASS);
-            Node hugeWindow = graph.createNode("HugeWindow",EntityType.CLASS);
+    void decoratorObjectStructureDetected() {
+        runTest(graph -> {
+            Node window = graph.createNode("Window", EntityType.CLASS);
+            Node hugeWindow = graph.createNode("HugeWindow", EntityType.CLASS);
 
-            graph.linkTwoNodes(window,hugeWindow,RelationType.EXTENDS);
+            graph.linkTwoNodes(window, hugeWindow, RelationType.EXTENDS);
 
-            Node decorator = graph.createNode("WindowSublimer",EntityType.CLASS);
+            Node decorator = graph.createNode("WindowSublimer", EntityType.CLASS);
 
-            graph.linkTwoNodes(window,decorator,RelationType.EXTENDS);
+            graph.linkTwoNodes(window, decorator, RelationType.EXTENDS);
 
-            Node damidoDecorator = graph.createNode("Damido",EntityType.CLASS);
-            Node lauraDecorator = graph.createNode("LauraR",EntityType.CLASS);
-            graph.linkTwoNodes(decorator,damidoDecorator,RelationType.EXTENDS);
-            graph.linkTwoNodes(decorator,lauraDecorator,RelationType.EXTENDS);
+            Node damidoDecorator = graph.createNode("Damido", EntityType.CLASS);
+            Node lauraDecorator = graph.createNode("LauraR", EntityType.CLASS);
+            graph.linkTwoNodes(decorator, damidoDecorator, RelationType.EXTENDS);
+            graph.linkTwoNodes(decorator, lauraDecorator, RelationType.EXTENDS);
 
             Node windowAttribute = graph.createNode("window", EntityType.ATTRIBUTE);
-            graph.setNodeAttribute(windowAttribute,"type","Window");
-            graph.linkTwoNodes(decorator,windowAttribute,RelationType.ATTRIBUTE);
+            graph.setNodeAttribute(windowAttribute, "type", "Window");
+            graph.linkTwoNodes(decorator, windowAttribute, RelationType.ATTRIBUTE);
 
             graph.detectCPPDecoratorPatterns();
 

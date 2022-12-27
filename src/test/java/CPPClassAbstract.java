@@ -22,31 +22,31 @@
 import neo4j_types.EntityAttribute;
 import neo4j_types.EntityType;
 import neo4j_types.RelationType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.neo4j.driver.types.Node;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CPPClassAbstract extends Neo4jTest {
 
     @Test
-    public void setCPPLabelAbstractClass() {
+    void setCPPLabelAbstractClass() {
         runTest(graph -> {
-            Node shape = graph.createNode("Shape",EntityType.CLASS);
-            Node area = graph.createNode("area",EntityType.METHOD,EntityAttribute.ABSTRACT);
-            graph.linkTwoNodes(shape,area,RelationType.METHOD);
+            Node shape = graph.createNode("Shape", EntityType.CLASS);
+            Node area = graph.createNode("area", EntityType.METHOD, EntityAttribute.ABSTRACT);
+            graph.linkTwoNodes(shape, area, RelationType.METHOD);
             graph.detectCPPClassAbstract(shape);
             assertTrue(graph.getNode("Shape").get().hasLabel(EntityAttribute.ABSTRACT.toString()));
         });
     }
 
     @Test
-    public void setCPPLabelAbstractClassFalsePositive() {
+    void setCPPLabelAbstractClassFalsePositive() {
         runTest(graph -> {
-            Node shape = graph.createNode("Shape",EntityType.CLASS);
-            Node area = graph.createNode("area",EntityType.METHOD);
-            graph.linkTwoNodes(shape,area,RelationType.METHOD);
+            Node shape = graph.createNode("Shape", EntityType.CLASS);
+            Node area = graph.createNode("area", EntityType.METHOD);
+            graph.linkTwoNodes(shape, area, RelationType.METHOD);
             graph.detectCPPClassAbstract(shape);
             assertFalse(graph.getNode("Shape").get().hasLabel(EntityAttribute.ABSTRACT.toString()));
         });

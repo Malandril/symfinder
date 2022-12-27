@@ -22,6 +22,7 @@
 
 docker build -f docker/sources_fetcher/Dockerfile -t deathstar3/symfinder-fetcher:local .
 docker build -f docker/neo4j/Dockerfile -t deathstar3/symfinder-neo4j:local --build-arg BUILD_PARAMS="$@" .
-docker build -f docker/symfinder/Dockerfile -t deathstar3/symfinder-engine:local --build-arg BUILD_PARAMS="$@" .
 docker build -f docker/runner/Dockerfile -t deathstar3/symfinder-runner:local .
 docker build -f docker/features-extractor/Dockerfile -t deathstar3/features-extractor:local .
+docker build -f docker/symfinder/Dockerfile -t symfinder-engine-base:17-jre-alpine .
+./gradlew jibDockerBuild

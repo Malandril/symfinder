@@ -36,8 +36,8 @@ cp -r test_projects/cpp resources/cpp
 cp -r test_projects/cpp/* resources/
 cp -r test_projects/pom.xml resources/
 
-docker build -f docker/integration_tests/compile/Dockerfile -t test_projects_builder .
-docker run --rm --name test_projects_builder -v "$(pwd)/resources":/usr/src/mymaven -w /usr/src/mymaven test_projects_builder
+# docker build -f docker/integration_tests/compile/Dockerfile -t test_projects_builder .
+# docker run --rm --name test_projects_builder -v "$(pwd)/resources":/usr/src/mymaven -w /usr/src/mymaven test_projects_builder
 
 ./build.sh -DskipTests
 ./run.sh --local

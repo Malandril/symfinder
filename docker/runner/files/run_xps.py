@@ -24,7 +24,7 @@ import yaml
 
 
 def run_project():
-    sources_package = os.path.join(xp_codename, xp_config["sourcePackage"])
+    sources_package = os.path.join("/resources", xp_codename, xp_config["sourcePackage"])
     xp_language = str(xp_config.get("language", "java"))
     graph_output_path = "generated_visualizations/data/{}.json".format(xp_codename)
     jvm_args = str(xp_config.get("jvmArguments", ""))

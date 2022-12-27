@@ -72,7 +72,6 @@ with open('symfinder.yaml', 'r') as config_file:
                     if "commitIds" in xp_config:
                         commit_ids = [str(id) for id in xp_config["commitIds"]]
                         checkout_versions("commit", *commit_ids)
-                    delete_project()
                 if "checkoutCommand" in xp_config:
                     project_directory = os.path.join(projects_package, xp_name)
                     origin_dir = os.getcwd()

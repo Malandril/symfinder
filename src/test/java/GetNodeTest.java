@@ -25,7 +25,7 @@ import org.neo4j.driver.types.Node;
 
 import java.util.Optional;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GetNodeTest extends Neo4jTest {
 

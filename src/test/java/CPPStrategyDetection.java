@@ -22,16 +22,16 @@
 import neo4j_types.EntityAttribute;
 import neo4j_types.EntityType;
 import neo4j_types.RelationType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.neo4j.driver.types.Node;
 
 import static neo4j_types.DesignPatternType.STRATEGY;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CPPStrategyDetection extends Neo4jTest {
 
     @Test
-    public void strategyNameIsNotEnough() {
+    void strategyNameIsNotEnough() {
         runTest(graph -> {
             Node shapeClass = graph.createNode("ShapeStrategy", EntityType.CLASS);
             graph.detectCPPStrategyPatterns();
@@ -40,33 +40,33 @@ public class CPPStrategyDetection extends Neo4jTest {
     }
 
     @Test
-    public void strategyNamedReferencedIsDetected() {
+    void strategyNamedReferencedIsDetected() {
         runTest(graph -> {
             Node shapeClass = graph.createNode("ShapeStrategy", EntityType.CLASS);
-            Node geometry = graph.createNode("Geometry",EntityType.CLASS);
-            Node shapeStrategy = graph.createNode("shapeStrategy",EntityType.ATTRIBUTE);
-            graph.setNodeAttribute(shapeStrategy,"type","ShapeStrategy");
-            graph.linkTwoNodes(geometry,shapeStrategy,RelationType.ATTRIBUTE);
+            Node geometry = graph.createNode("Geometry", EntityType.CLASS);
+            Node shapeStrategy = graph.createNode("shapeStrategy", EntityType.ATTRIBUTE);
+            graph.setNodeAttribute(shapeStrategy, "type", "ShapeStrategy");
+            graph.linkTwoNodes(geometry, shapeStrategy, RelationType.ATTRIBUTE);
             graph.detectCPPStrategyPatterns();
             assertTrue(graph.getNode("ShapeStrategy").get().hasLabel(STRATEGY.toString()));
         });
     }
 
     @Test
-    public void strategyObjectHierarchyIsDetected() {
-        runTest(graph->{
-            Node strategyInterface = graph.createNode("WarGeneralInterface",EntityType.CLASS);
-            Node strategySunTzu = graph.createNode("GeneralSunTzu",EntityType.CLASS);
-            Node strategyNapoleon = graph.createNode("GeneralNapoleon",EntityType.CLASS);
+    void strategyObjectHierarchyIsDetected() {
+        runTest(graph -> {
+            Node strategyInterface = graph.createNode("WarGeneralInterface", EntityType.CLASS);
+            Node strategySunTzu = graph.createNode("GeneralSunTzu", EntityType.CLASS);
+            Node strategyNapoleon = graph.createNode("GeneralNapoleon", EntityType.CLASS);
 
-            graph.linkTwoNodes(strategyInterface,strategySunTzu,RelationType.EXTENDS);
-            graph.linkTwoNodes(strategyInterface,strategyNapoleon,RelationType.EXTENDS);
+            graph.linkTwoNodes(strategyInterface, strategySunTzu, RelationType.EXTENDS);
+            graph.linkTwoNodes(strategyInterface, strategyNapoleon, RelationType.EXTENDS);
 
-            Node greatestGeneral = graph.createNode("GreatestGeneral",EntityType.CLASS);
-            Node generalAttribute = graph.createNode("warStrategy",EntityType.ATTRIBUTE);
-            graph.setNodeAttribute(generalAttribute,"type","WarGeneralInterface");
+            Node greatestGeneral = graph.createNode("GreatestGeneral", EntityType.CLASS);
+            Node generalAttribute = graph.createNode("warStrategy", EntityType.ATTRIBUTE);
+            graph.setNodeAttribute(generalAttribute, "type", "WarGeneralInterface");
 
-            graph.linkTwoNodes(greatestGeneral,generalAttribute,RelationType.ATTRIBUTE);
+            graph.linkTwoNodes(greatestGeneral, generalAttribute, RelationType.ATTRIBUTE);
 
             graph.detectCPPStrategyPatterns();
 

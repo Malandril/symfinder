@@ -22,20 +22,11 @@
 
 set -e
 
-if [[ -d /resources2 ]]; then
+if [ -d /resources2 ]; then
   echo "Copying resources to analyse in tmpfs mount..."
   cp -r /resources2/"$1" /resources/
-  if [ -z "$4" ]; then
-    java -jar /symfinder.jar /resources/ "$2" "$3"
-  else
-    java "$4" -jar /symfinder.jar /resources/ "$2" "$3"
-  fi
-else
-  if [ -z "$4" ]; then
-    java -jar /symfinder.jar /resources/"$1" "$2" "$3"
-  else
-    java "$4" -jar /symfinder.jar /resources/"$1" "$2" "$3"
-  fi
 fi
+export
+java -cp @/app/jib-classpath-file @/app/jib-main-class-file "$@"
 
 chown -R $SYMFINDER_UID:$SYMFINDER_GID /generated_visualizations

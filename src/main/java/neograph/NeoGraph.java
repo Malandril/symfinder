@@ -24,6 +24,7 @@ package neograph;
 import neo4j_types.*;
 import org.json.JSONObject;
 import org.neo4j.driver.*;
+import org.neo4j.driver.Record;
 import org.neo4j.driver.exceptions.ServiceUnavailableException;
 import org.neo4j.driver.types.MapAccessor;
 import org.neo4j.driver.types.Node;
@@ -370,7 +371,7 @@ public class NeoGraph {
     }
 
     public void writeToFile(String filePath, String content) {
-        Path path = Paths.get(filePath);
+        Path path = Paths.get(filePath).toAbsolutePath();
         try {
             if (path.toFile().getParentFile().exists() || (path.toFile().getParentFile().mkdirs() && path.toFile().createNewFile())) {
                 try (BufferedWriter bw = Files.newBufferedWriter(path)) {

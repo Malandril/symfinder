@@ -101,11 +101,7 @@ public class Symfinder {
         neoGraph.createInterfacesIndex();
 
         if (java) {
-            String classpathPath = System.getenv("JAVA_HOME");
-            if (classpathPath == null) { // default to linux openJDK 11 path
-                classpathPath = "/usr/lib/jvm/java-11-openjdk";
-            }
-
+            String classpathPath = System.getProperty("java.home");
             logger.log(LEVEL, "ClassesVisitor");
             visitPackage(classpathPath, files, new ClassesVisitor(neoGraph));
             logger.log(LEVEL, "GraphBuilderVisitor");

@@ -25,12 +25,12 @@ import neo4j_types.RelationType;
 import org.junit.jupiter.api.Test;
 import org.neo4j.driver.types.Node;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ClassLevelVariantsTest extends Neo4jTest {
 
     @Test
-    public void NoSubclass() {
+    void NoSubclass() {
         runTest(graph -> {
             graph.createNode("Shape", EntityType.CLASS, EntityAttribute.ABSTRACT);
             graph.setVPLabels();
@@ -40,7 +40,7 @@ public class ClassLevelVariantsTest extends Neo4jTest {
     }
 
     @Test
-    public void OneConcreteClass() {
+    void OneConcreteClass() {
         runTest(graph -> {
             graph.createNode("Shape", EntityType.CLASS);
             graph.detectVPsAndVariants();
@@ -49,7 +49,7 @@ public class ClassLevelVariantsTest extends Neo4jTest {
     }
 
     @Test
-    public void OneSubclass() {
+    void OneSubclass() {
         runTest(graph -> {
             Node shapeClass = graph.createNode("Shape", EntityType.CLASS, EntityAttribute.ABSTRACT);
             Node circleClass = graph.createNode("Circle", EntityType.CLASS);
@@ -60,7 +60,7 @@ public class ClassLevelVariantsTest extends Neo4jTest {
     }
 
     @Test
-    public void ThreeSubclasses() {
+    void ThreeSubclasses() {
         runTest(graph -> {
             Node shapeClass = graph.createNode("Shape", EntityType.CLASS, EntityAttribute.ABSTRACT);
             Node circleClass = graph.createNode("Circle", EntityType.CLASS);
@@ -75,7 +75,7 @@ public class ClassLevelVariantsTest extends Neo4jTest {
     }
 
     @Test
-    public void OneAbstractSubclass() {
+    void OneAbstractSubclass() {
         runTest(graph -> {
             Node shapeClass = graph.createNode("Shape", EntityType.CLASS, EntityAttribute.ABSTRACT);
             Node polygonClass = graph.createNode("Polygon", EntityType.CLASS, EntityAttribute.ABSTRACT);
@@ -97,7 +97,7 @@ public class ClassLevelVariantsTest extends Neo4jTest {
     }
 
     @Test
-    public void OutOfScopeSuperclass() {
+    void OutOfScopeSuperclass() {
         runTest(graph -> {
             Node objectClass = graph.createNode("Object", EntityType.CLASS, EntityAttribute.ABSTRACT, EntityAttribute.OUT_OF_SCOPE);
             Node polygonClass = graph.createNode("Polygon", EntityType.CLASS);
